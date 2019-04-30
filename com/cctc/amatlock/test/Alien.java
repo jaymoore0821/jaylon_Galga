@@ -29,7 +29,10 @@ public class Alien  extends CoreObject
     @Override
     public void render(Graphics g)
     {
-        g.setColor(color);
-        g.fillRect(x,y,width,height);
+        if (!destroyed)
+        {
+            g.setColor(color);
+            g.fillRect(x,y,width,height);
+        }
     }
 }

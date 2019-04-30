@@ -108,12 +108,20 @@ public class Screen extends Canvas implements Runnable
     {
         ResourceLoader.loadImages();     //loads images from files.
 
-        ship = new SpaceShip(Reference.CENTER_X, Reference.CENTER_Y,10,10, Color.BLACK);
+        ship = new SpaceShip(Reference.CENTER_X, Reference.CENTER_Y,10,10, Color.WHITE);
 
-        int x = 20;
+        int x = 0;
         int y = 20;
-        int alienWidth = 15;
+        int alienWidth = 29;
 
+        for( int i = 0; i < 30; i++)
+        {
+            Alien alien = new Alien(x,y,alienWidth,10, Color.WHITE);
+            addObject(alien);
+            x += alienWidth + 2;
+        }
+        y += 25;
+        x = 0;
         for( int i = 0; i < 10; i++)
         {
             Alien alien = new Alien(x,y,alienWidth,10, Color.WHITE);
@@ -121,12 +129,9 @@ public class Screen extends Canvas implements Runnable
             x += alienWidth + 2;
         }
 
-//        laser = new Laser(x,y);
-
         KeyInput keyInput = new KeyInput();
         this.addKeyListener(keyInput);
 
-        ship.setVelX(-5);
     }
 
     @Override

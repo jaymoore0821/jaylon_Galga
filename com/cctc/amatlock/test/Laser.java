@@ -22,6 +22,16 @@ public class Laser extends CoreObject
     @Override
     public void tick()
     {
+        CoreObject[] coreObjects = Screen.getCoreObjects();
+        for(int i = 0; i < Screen.getObjectCounter(); i++)
+        {
+            CoreObject  object = coreObjects[i];
+            if( intersects(object ))
+            {
+                object.destroy();
+            }
+        }
+
         x+= velX;
         y+= velY;
     }
