@@ -4,6 +4,9 @@ import java.awt.*;
 
 public class SpaceShip extends CoreObject
 {
+    public int score = 0;
+    public Laser[] lasers = new Laser[30];
+    public int laserCounter = 0;
 
     /**
      * Creates the core object. All subclasses
@@ -42,8 +45,15 @@ public class SpaceShip extends CoreObject
 
     public void shoot()
     {
-        Laser laser = new Laser(x,y,10,30, Color.WHITE);
-        laser.setVelY(-5);
-        Screen.addObject(laser);
+        Laser laser = new Laser(x,y,9,10, Color.WHITE);
+        laser.setVelY(-10);
+
+        if( laserCounter >= lasers.length)
+        {
+            laserCounter = 0;
+        }
+
+        lasers[laserCounter] = laser;
+        laserCounter++;
     }
 }

@@ -2,7 +2,9 @@ package com.cctc.amatlock.test;
 
 import com.cctc.amatlock.test.utilities.Images;
 import com.cctc.amatlock.test.utilities.ResourceLoader;
+import com.cctc.amatlock.test.utilities.Sounds;
 
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -67,6 +69,12 @@ public class Screen extends Canvas implements Runnable
         {
             coreObjects[i].render(g);
         }
+
+        // Draw the lasers
+        for(int i = 0; i < ship.laserCounter; i++)
+        {
+            ship.lasers[i].render(g);
+        }
     }
 
     public void render()
@@ -99,6 +107,11 @@ public class Screen extends Canvas implements Runnable
             coreObjects[i].tick();
         }
 
+        // tick the lasers
+        for(int i = 0; i < ship.laserCounter; i++)
+        {
+            ship.lasers[i].tick();
+        }
     }
 
     /**
@@ -106,31 +119,61 @@ public class Screen extends Canvas implements Runnable
      */
     public void init()
     {
-        ResourceLoader.loadImages();     //loads images from files.
+        ResourceLoader.loadImages();
+        ResourceLoader.loadSounds();
+
+        Sounds.background.start();
+        Sounds.background.loop(Clip.LOOP_CONTINUOUSLY);
+
+        KeyInput keyInput = new KeyInput();
+        this.addKeyListener(keyInput);
 
         ship = new SpaceShip(Reference.CENTER_X, Reference.CENTER_Y,10,10, Color.WHITE);
 
+        // Row One
         int x = 0;
         int y = 20;
         int alienWidth = 29;
 
-        for( int i = 0; i < 30; i++)
+        for( int i = 0; i < 10; i++)
         {
             Alien alien = new Alien(x,y,alienWidth,10, Color.WHITE);
             addObject(alien);
-            x += alienWidth + 2;
+            alien.setVelX(3);
+            x += alienWidth * 2;
         }
+
+        // Row Two
         y += 25;
         x = 0;
         for( int i = 0; i < 10; i++)
         {
             Alien alien = new Alien(x,y,alienWidth,10, Color.WHITE);
             addObject(alien);
-            x += alienWidth + 2;
+            alien.setVelX(-3);
+            x += alienWidth * 2;
         }
 
-        KeyInput keyInput = new KeyInput();
-        this.addKeyListener(keyInput);
+        // Row Three
+        y += 25;
+        x =0 ;
+        for( int i = 0; i < 10; i++)
+        {
+            Alien alien = new Alien(x,y,alienWidth,10, Color.WHITE);
+            addObject(alien);
+            alien.setVelX(3);
+            x += alienWidth *2;
+        }
+        // Row Four
+        y += 25;
+        x = 0;
+        for( int i = 0; i < 10; i++)
+        {
+            Alien alien = new Alien(x,y,alienWidth,10, Color.WHITE);
+            addObject(alien);
+            alien.setVelX(-3);
+            x += alienWidth * 2;
+        }
 
     }
 

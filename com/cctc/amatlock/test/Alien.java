@@ -4,6 +4,8 @@ import java.awt.*;
 
 public class Alien  extends CoreObject
 {
+    public Laser[] lasers = new Laser[30];
+    public int laserCounter = 0;
     /**
      * Creates the core object. All subclasses
      * will call this with super.
@@ -24,6 +26,17 @@ public class Alien  extends CoreObject
     {
         x+= velX;
         y+= velY;
+        if( x < 0 )
+        {
+            velX *= -1;
+            y+= height +2;
+        }
+        else if (x > Reference.WIDTH)
+        {
+            velX *= -1;
+            y+= height + 2;
+        }
+        shoot();
     }
 
     @Override
@@ -33,6 +46,22 @@ public class Alien  extends CoreObject
         {
             g.setColor(color);
             g.fillRect(x,y,width,height);
+
+
         }
+
+    }
+    public void shoot()
+    {
+        Laser laser = new Laser(x, y, 5, 10, Color.WHITE);
+        laser.setVelY(10);
+
+        if(laserCounter >= lasers.length)
+        {
+            laserCounter = 0;
+        }
+        lasers[laserCounter] = laser;
+        laserCounter++;
     }
 }
+
