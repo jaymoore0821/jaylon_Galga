@@ -6,6 +6,7 @@ public class Alien  extends CoreObject
 {
     public Laser[] lasers = new Laser[30];
     public int laserCounter = 0;
+    private int ticks = 0;
     /**
      * Creates the core object. All subclasses
      * will call this with super.
@@ -24,8 +25,10 @@ public class Alien  extends CoreObject
     @Override
     public void tick()
     {
+        ticks++;
         x+= velX;
         y+= velY;
+
         if( x < 0 )
         {
             velX *= -1;
@@ -36,7 +39,18 @@ public class Alien  extends CoreObject
             velX *= -1;
             y+= height + 2;
         }
-        shoot();
+
+        for(int i = 0; i < laserCounter; i++)
+        {
+            lasers[i].tick();
+        }
+
+        if(ticks == 60)
+        {
+            shoot();
+            ticks = 0;
+        }
+
     }
 
     @Override
@@ -46,6 +60,10 @@ public class Alien  extends CoreObject
         {
             g.setColor(color);
             g.fillRect(x,y,width,height);
+            for(int i = 0; i < laserCounter; i++)
+            {
+                lasers[i].render(g);
+            }
 
 
         }
@@ -53,7 +71,7 @@ public class Alien  extends CoreObject
     }
     public void shoot()
     {
-        Laser laser = new Laser(x, y, 5, 10, Color.WHITE);
+        Laser laser = new Laser(x, y, 5, 10, Color.WHITE, false);
         laser.setVelY(10);
 
         if(laserCounter >= lasers.length)

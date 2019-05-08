@@ -1,5 +1,7 @@
 package com.cctc.amatlock.test;
 
+import com.cctc.amatlock.test.utilities.Images;
+
 import java.awt.*;
 
 public class SpaceShip extends CoreObject
@@ -40,12 +42,13 @@ public class SpaceShip extends CoreObject
     public void render(Graphics g)
     {
         g.setColor(color);
-        g.fillRect(x ,y,width,height);
+        //g.fillRect(x ,y,width,height);
+        g.drawImage(Images.ship,x,y, width,height, null);
     }
 
     public void shoot()
     {
-        Laser laser = new Laser(x,y,9,10, Color.WHITE);
+        Laser laser = new Laser(x,y,9,10, Color.WHITE,true);
         laser.setVelY(-10);
 
         if( laserCounter >= lasers.length)

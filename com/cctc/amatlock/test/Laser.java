@@ -16,9 +16,10 @@ public class Laser extends CoreObject
      * @param height
      * @param color
      */
-    public Laser(int x, int y, int width, int height, Color color)
+    public Laser(int x, int y, int width, int height, Color color, boolean ally )
     {
         super(x, y, width, height, color);
+        this.ally = ally;
     }
 
     @Override
@@ -26,17 +27,28 @@ public class Laser extends CoreObject
     {
         CoreObject[] coreObjects = Screen.getCoreObjects();
         SpaceShip ship = Screen.getInstance().ship;
-
-        for(int i = 0; i < Screen.getObjectCounter(); i++)
+        if(ally)
         {
-            CoreObject  object = coreObjects[i];
-            if( intersects(object) && !object.destroyed)
+            for(int i = 0; i < Screen.getObjectCounter(); i++)
             {
-                object.destroy();
-                ship.score += 5;
-                System.out.println("score: " + ship.score);
+                CoreObject  object = coreObjects[i];
+                if( intersects(object) && !object.destroyed)
+                {
+                    object.destroy();
+                    ship.score += 5;
+                    System.out.println("score: " + ship.score);
+                }
+            }
+
+        }
+        else
+        {
+            if( intersects(ship) && !ship.destroyed)
+            {
+                ship.destroy();
             }
         }
+
 
         x+= velX;
         y+= velY;
