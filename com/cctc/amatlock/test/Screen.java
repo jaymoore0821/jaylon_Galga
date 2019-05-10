@@ -128,7 +128,7 @@ public class Screen extends Canvas implements Runnable
         KeyInput keyInput = new KeyInput();
         this.addKeyListener(keyInput);
 
-        ship = new SpaceShip(Reference.CENTER_X, Reference.CENTER_Y,10,10, Color.WHITE);
+        ship = new SpaceShip(Reference.CENTER_X, Reference.CENTER_Y,40,40, Color.WHITE);
 
         // Row One
         int x = 0;

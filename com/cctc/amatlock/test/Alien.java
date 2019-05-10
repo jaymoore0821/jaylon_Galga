@@ -1,5 +1,7 @@
 package com.cctc.amatlock.test;
 
+import com.cctc.amatlock.test.utilities.Images;
+
 import java.awt.*;
 
 public class Alien  extends CoreObject
@@ -25,6 +27,10 @@ public class Alien  extends CoreObject
     @Override
     public void tick()
     {
+        if(destroyed)
+        {
+            return;
+        }
         ticks++;
         x+= velX;
         y+= velY;
@@ -51,6 +57,7 @@ public class Alien  extends CoreObject
             ticks = 0;
         }
 
+
     }
 
     @Override
@@ -59,11 +66,14 @@ public class Alien  extends CoreObject
         if (!destroyed)
         {
             g.setColor(color);
-            g.fillRect(x,y,width,height);
+//            g.fillRect(x,y,width,height);
             for(int i = 0; i < laserCounter; i++)
             {
                 lasers[i].render(g);
             }
+            g.setColor(color);
+            //g.fillRect(x ,y,width,height);
+            g.drawImage(Images.alien,x,y, width,height, null);
 
 
         }

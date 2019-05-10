@@ -29,6 +29,10 @@ public class SpaceShip extends CoreObject
     @Override
     public void tick()
     {
+        if(destroyed)
+        {
+            return;
+        }
        x+= velX;
       int counter = 0;
       counter++;
@@ -41,9 +45,13 @@ public class SpaceShip extends CoreObject
     @Override
     public void render(Graphics g)
     {
+        if(destroyed)
+        {
+            return;
+        }
         g.setColor(color);
         //g.fillRect(x ,y,width,height);
-        g.drawImage(Images.ship,x,y, width,height, null);
+        g.drawImage(Images.spaceship,x,y, width,height, null);
     }
 
     public void shoot()
